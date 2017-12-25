@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="JS," />
+  <meta name="keywords" content="React," />
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="JavaScrpit的三大部分需要特别注意的是JS≠ECMAScript这里就需要明确的讨论一下JS的组成部分了。JS=ECMAScript(核心)+DOM(文档对象模型)+BOM(浏览器对象模型) ECMAScript(JS核心)ECMAScript规定或者说是定义了如下内容  语法 类型 语句 关键字 保留字 操作符 对象  这里需要明确一点ECMAScript-262定义的ECMAScri">
-<meta name="keywords" content="JS">
+<meta name="description" content="在介绍JSX之前，需要回顾一下JS在处理页面事件时扮演的什么角色。JS在处理页面各种事件时，无非就是利用DOM提供的API使JS有能力对HTML事件作出反应。12345678910111213&amp;lt;!DOCTYPE html&amp;gt;&amp;lt;html&amp;gt;    &amp;lt;head&amp;gt;        &amp;lt;script&amp;gt;            function handleButon">
+<meta name="keywords" content="React">
 <meta property="og:type" content="article">
-<meta property="og:title" content="初识JS">
-<meta property="og:url" content="http://yoursite.com/2017/12/20/First-Head-JS/index.html">
+<meta property="og:title" content="JSX解析">
+<meta property="og:url" content="http://yoursite.com/2017/12/25/React-JSX/index.html">
 <meta property="og:site_name" content="朝花夕拾">
-<meta property="og:description" content="JavaScrpit的三大部分需要特别注意的是JS≠ECMAScript这里就需要明确的讨论一下JS的组成部分了。JS=ECMAScript(核心)+DOM(文档对象模型)+BOM(浏览器对象模型) ECMAScript(JS核心)ECMAScript规定或者说是定义了如下内容  语法 类型 语句 关键字 保留字 操作符 对象  这里需要明确一点ECMAScript-262定义的ECMAScri">
+<meta property="og:description" content="在介绍JSX之前，需要回顾一下JS在处理页面事件时扮演的什么角色。JS在处理页面各种事件时，无非就是利用DOM提供的API使JS有能力对HTML事件作出反应。12345678910111213&amp;lt;!DOCTYPE html&amp;gt;&amp;lt;html&amp;gt;    &amp;lt;head&amp;gt;        &amp;lt;script&amp;gt;            function handleButon">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-12-21T14:02:44.986Z">
+<meta property="og:updated_time" content="2017-12-25T09:58:54.193Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="初识JS">
-<meta name="twitter:description" content="JavaScrpit的三大部分需要特别注意的是JS≠ECMAScript这里就需要明确的讨论一下JS的组成部分了。JS=ECMAScript(核心)+DOM(文档对象模型)+BOM(浏览器对象模型) ECMAScript(JS核心)ECMAScript规定或者说是定义了如下内容  语法 类型 语句 关键字 保留字 操作符 对象  这里需要明确一点ECMAScript-262定义的ECMAScri">
+<meta name="twitter:title" content="JSX解析">
+<meta name="twitter:description" content="在介绍JSX之前，需要回顾一下JS在处理页面事件时扮演的什么角色。JS在处理页面各种事件时，无非就是利用DOM提供的API使JS有能力对HTML事件作出反应。12345678910111213&amp;lt;!DOCTYPE html&amp;gt;&amp;lt;html&amp;gt;    &amp;lt;head&amp;gt;        &amp;lt;script&amp;gt;            function handleButon">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/12/20/First-Head-JS/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/12/25/React-JSX/"/>
 
 
 
 
 
-  <title>初识JS | 朝花夕拾</title>
+  <title>JSX解析 | 朝花夕拾</title>
   
 
 
@@ -253,7 +253,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/20/First-Head-JS/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/25/React-JSX/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="踽踽前行的路人">
@@ -270,7 +270,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">初识JS</h1>
+          <h1 class="post-title" itemprop="name headline">JSX解析</h1>
         
 
         <div class="post-meta">
@@ -282,8 +282,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-20T15:13:01+08:00">
-                2017-12-20
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-25T16:18:22+08:00">
+                2017-12-25
               </time>
             
 
@@ -305,8 +305,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JS/" itemprop="url" rel="index">
-                    <span itemprop="name">JS</span>
+                  <a href="/categories/React/" itemprop="url" rel="index">
+                    <span itemprop="name">React</span>
                   </a>
                 </span>
 
@@ -316,6 +316,8 @@
             </span>
           
 
+          
+            
           
 
           
@@ -341,65 +343,35 @@
 
       
         <hr>
-<h1 id="JavaScrpit的三大部分"><a href="#JavaScrpit的三大部分" class="headerlink" title="JavaScrpit的三大部分"></a>JavaScrpit的三大部分</h1><p>需要特别注意的是JS≠ECMAScript<br>这里就需要明确的讨论一下JS的组成部分了。<br>JS=ECMAScript(核心)+DOM(文档对象模型)+BOM(浏览器对象模型)</p>
-<h2 id="ECMAScript-JS核心"><a href="#ECMAScript-JS核心" class="headerlink" title="ECMAScript(JS核心)"></a>ECMAScript(JS核心)</h2><p>ECMAScript规定或者说是定义了如下内容</p>
-<ul>
-<li>语法</li>
-<li>类型</li>
-<li>语句</li>
-<li>关键字</li>
-<li>保留字</li>
-<li>操作符</li>
-<li>对象</li>
-</ul>
-<p><em>这里需要明确一点</em><br>ECMAScript-262定义的ECMAScript和Web浏览器没有任何依赖关系，ECMAScript并不包含输入、输出定义。我们所说的Web浏览器只是ECMAScript实现的<strong>宿主环境</strong>之一。</p>
+<p>在介绍JSX之前，需要回顾一下JS在处理页面事件时扮演的什么角色。<br>JS在处理页面各种事件时，无非就是利用DOM提供的API使JS有能力对HTML事件作出反应。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></div><div class="line"><span class="javascript">            <span class="function"><span class="keyword">function</span> <span class="title">handleButonClick</span>(<span class="params">e</span>)</span>&#123;</span></div><div class="line"><span class="javascript">                e.innerText = <span class="string">'你说的对'</span>;</span></div><div class="line"><span class="undefined">            &#125;</span></div><div class="line"><span class="undefined">        </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">onclick</span>=<span class="string">"handleButonClick(this)"</span>&gt;</span>我是一个萌萌哒的汉子<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>从上面的例子中看到,JS是利用DOM提供的API来对页面事件进行控制，其中Function在里面扮演着很重要的角色。<br>明白了这点，介绍JSX其实就有点简单了。<br>首先需要明确的一点就是React是JS的一个<strong>工具库</strong>。何为工具库，就是为了简化JS对页面的操作产生的。</p>
+<h1 id="初识JSX"><a href="#初识JSX" class="headerlink" title="初识JSX"></a>初识JSX</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> element = <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span>人家是一个JSX变量哦！<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></div></pre></td></tr></table></figure>
+<p>上面从JS的角度来分析，就是定义了一个常量(element)，保存着<div>人家是一个JSX变量哦！</div>。你会发现和ES5，ES6定义变量的方式，有点别扭。其实长这样的定义变量的方式，就是JSX语法。</p>
 <blockquote>
-<p>宿主环境&gt;不仅提供基本的ECMAScript的实现，同时也会提供ECMAScript的扩展，以便语言和宿主环境进行对接及交互。就针对Web浏览器而言，DOM利用ECMAScript所提供的核心类型和语法提供更多的功能，以便实现<strong>针对</strong>特定宿主环境的操作。</p>
+<p>JSX：a syntax extension to JavaScript</p>
 </blockquote>
-<h2 id="DOM-文档对象类型"><a href="#DOM-文档对象类型" class="headerlink" title="DOM(文档对象类型)"></a>DOM(文档对象类型)</h2><blockquote>
-<p>DOM&gt;是针对HTML和XML文档的一个API。DOM将整个页面<em>映射</em>一个层次化的<strong>节点树</strong>，允许开发人员对页面进行CURD。</p>
+<p>JSX其实就是对JS的语法扩展，说的更透彻一点就是对ECMAScript的语法扩展。在JSX中,就是将<strong>HTML语言直接写在JS语言中，不加任何引号</strong>。用于来<strong>描述</strong>页面长什么样子。利用HTML可以更好的描述页面的各种<em>层级结构</em>。</p>
+<h1 id="在JSX中嵌入表达式"><a href="#在JSX中嵌入表达式" class="headerlink" title="在JSX中嵌入表达式"></a>在JSX中嵌入表达式</h1><blockquote>
+<p>You can embed any JavaScript expression in JSX by wrapping it in curly braces.(你可以通过在JSX利用大括号嵌入任何JS表达式)</p>
 </blockquote>
-<h3 id="DOM级别"><a href="#DOM级别" class="headerlink" title="DOM级别"></a>DOM级别</h3><p>由于浏览器的发展，对DOM也不断的进行扩展，所以在不同的阶段，产生向上兼容的DOM版本。</p>
-<h4 id="DOM1级"><a href="#DOM1级" class="headerlink" title="DOM1级"></a>DOM1级</h4><p>DOM1级由两部分构成</p>
-<ol>
-<li><p>DOM Core(DOM 核心)</p>
-<blockquote>
-<p>DOM Core &gt;规定如何<strong>映射</strong>基于XML的文档机构，以便简化对文档中<em>任意</em>部分的访问和操作。</p>
-</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> param = <span class="string">"一人我饮酒醉"</span>;</div><div class="line"><span class="keyword">const</span> elemnt = <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span>&#123;param&#125; "醉把佳人成双对"<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></div></pre></td></tr></table></figure>
+<h1 id="JSX也可以作为表达式使用"><a href="#JSX也可以作为表达式使用" class="headerlink" title="JSX也可以作为表达式使用"></a>JSX也可以作为表达式使用</h1><p>需要明确的<strong>知识点</strong>：JS是有一半的”基因”是面向对象语言，所以JS中处处是对象。<br>由于JSX是对JS的语法扩展，所以JSX也是可以作为表达式存在的。(经过特定的编译器，JSX expressions会被编译为普通函数用于调用或者是JS Object)。<br>这就意味着，你可以在if 或者for循环中使用JSX。用于将JSX赋值给一个变量，作为函数参数使用（HOC）或者作为函数的返回值。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">getGreeting</span>(<span class="params">user</span>) </span>&#123;</div><div class="line">  <span class="keyword">if</span> (user) &#123;</div><div class="line">    <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>Hello, &#123;formatName(user)&#125;!<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span>;</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>Hello, Stranger.<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h1 id="JSX中指定属性"><a href="#JSX中指定属性" class="headerlink" title="JSX中指定属性"></a>JSX中指定属性</h1><ol>
+<li><p>可以使用<strong>引号</strong>(“ “)为React Element中某个<strong>属性</strong>指定一个字符串变量。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> element = <span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"abc"</span>&gt;</span>呵呵<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></div></pre></td></tr></table></figure>
 </li>
-<li><p>DOM HTML</p>
-<blockquote>
-<p>DOM HTML &gt; 在DOM Core的基础上加以<strong>扩展</strong>，添加了针对HTML的对象和方法。</p>
-</blockquote>
+<li><p>将属性值嵌入到<strong>大括号</strong>中为React Element属性赋值</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> element = <span class="xml"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&#123;user.avatarUrl&#125;</span>&gt;</span><span class="tag">&lt;/<span class="name">img</span>&gt;</span></span>;</div></pre></td></tr></table></figure>
 </li>
 </ol>
-<p>DOM1目标主要是映射文档的结构。</p>
-<h4 id="DOM2级"><a href="#DOM2级" class="headerlink" title="DOM2级"></a>DOM2级</h4><p>DOM2级在原来DOM1级的基础上又扩充了鼠标和用户界面事件、范围、迭代DOM文档的方法等模块。同时通过<strong>对象接口</strong>增加了对CSS的支持。<br>DOM2引入下列新模块</p>
+<h1 id="JSX-Represents-Objects"><a href="#JSX-Represents-Objects" class="headerlink" title="JSX Represents Objects"></a>JSX Represents Objects</h1><p>上文了解到JSX是js的一个语法扩展，也就是说，没有进过转换或者编译的JSX元素，浏览器是不认识的。所以在页面的编译阶段，当遇到用JSX语法来构建的element的时候，React内部会在内部调用React.createElement()将JSX变成一个浏览器能够识别的<strong>普通对象</strong>。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//JSX构建元素</span></div><div class="line"><span class="keyword">const</span> element = (</div><div class="line">  &lt;h1 className=<span class="string">"greeting"</span>&gt;</div><div class="line">    Hello, world!</div><div class="line">  &lt;<span class="regexp">/h1&gt;</span></div><div class="line"><span class="regexp">);</span></div><div class="line"><span class="regexp">/</span><span class="regexp">/不使用JSX,直接调用createElement来构建Element</span></div><div class="line"><span class="regexp">const element = React.createElement(</span></div><div class="line"><span class="regexp">  'h1',</span></div><div class="line"><span class="regexp">  &#123;className: 'greeting'&#125;,</span></div><div class="line"><span class="regexp">  'Hello, world!'</span></div><div class="line"><span class="regexp">);</span></div></pre></td></tr></table></figure></p>
+<p>上面两种方式构建的Element是等价的。最后的结果都是构建了一个具有<strong>层级结构</strong>的element。<br>最后经过编译阶段，利用JSX构建的React元素会被编译成普通对象。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//这里是进过简化过的，具体的对象比这个复杂。</span></div><div class="line"><span class="keyword">const</span> element = &#123;</div><div class="line">  type: <span class="string">'h1'</span>,</div><div class="line">  props: &#123;</div><div class="line">    className: <span class="string">'greeting'</span>,</div><div class="line">    children: <span class="string">'Hello, world'</span></div><div class="line">  &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<h1 id="Buzzer"><a href="#Buzzer" class="headerlink" title="Buzzer"></a>Buzzer</h1><p>其实在React开发过程中完全可以抛弃JSX来进行页面的构建，利用React.createElement()来构建页面也是可以的，但是大多数人还是更愿意采用JSX。</p>
 <ol>
-<li>DOM Views(DOM视图) :定义了跟踪不同文档视图的接口；</li>
-<li>DOM Event(DOM事件) :定义了事件和事件处理的接口；</li>
-<li>DOM Style(DOM样式) ：定义了基于CSS为元素应用样式的接口；</li>
-<li>DOM Traversal and Range(DOM遍历和范围)：定义了遍历和操作文档树的接口；</li>
+<li>JSX类似于用HTML来搭建页面，<strong>所见即所得</strong></li>
+<li>JSX语法能够实现代码的高内聚低耦合</li>
+<li>使用JSX可以显示React更多的有用的错误提示</li>
 </ol>
-<h4 id="DOM3级"><a href="#DOM3级" class="headerlink" title="DOM3级"></a>DOM3级</h4><p>DOM3级引入下列新模块</p>
-<ol>
-<li>DOM Load and Save(DOM加载和保存):以统一方式加载和保存文档的方法；</li>
-<li>DOM Validation(DOM验证):验证文档的方法</li>
-</ol>
-<h2 id="BOM-浏览器对象模型"><a href="#BOM-浏览器对象模型" class="headerlink" title="BOM(浏览器对象模型)"></a>BOM(浏览器对象模型)</h2><p>开发人员使用BOM可以控制浏览器显示的页面以外的部分。<br><em>从根本上讲，BOM只处理浏览器窗口和框架。</em>但是开发人员也把所有针对浏览器的JS扩展算作BOM的一部分。</p>
-<ul>
-<li>弹窗新浏览器窗口的功能；</li>
-<li>移动、缩放和关闭浏览器窗功能；</li>
-<li>提供浏览器详细信息的navigator对象；</li>
-<li>提供浏览器所加载页面的详细信息的location对象；</li>
-<li>提供用户显示器分辨率详细信息的screen对象；</li>
-<li>对cookies的支持</li>
-<li>像XMLHttpRequest自定义对象。</li>
-</ul>
-<h1 id="Buzzer"><a href="#Buzzer" class="headerlink" title="Buzzer"></a>Buzzer</h1><p>其实可以用一道菜来形容JS中ECMAScript、DOM、BOM的关系</p>
-<blockquote>
-<p>宫保鸡丁(web page)的做法<br>预备材料：鸡肉(html or xml)、佐料(css)<br>主厨：JS<br>主厨(JS)利用手中的刀(DOM){该刀不仅仅切鸡肉}将鸡肉切成块状(web page object/API),利用自己娴熟的技术(ECMAScirpt)<br>针对不同的种类的鸡块(API)配合佐料(css)和火候(BOM)产生的温度(browser object/API{XMLHTTPRequest对象，location对象})烹饪出可口的page。</p>
-</blockquote>
 
       
     </div>
@@ -446,7 +418,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/JS/" rel="tag"># JS</a>
+            <a href="/tags/React/" rel="tag"># React</a>
           
         </div>
       
@@ -459,15 +431,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2017/12/25/CSS-Horizontal/" rel="next" title="CSS-水平垂直居中常用方案">
+                <i class="fa fa-chevron-left"></i> CSS-水平垂直居中常用方案
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/12/21/First-Head-React/" rel="prev" title="React概述">
-                React概述 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -501,6 +473,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -641,7 +617,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#JavaScrpit的三大部分"><span class="nav-number">1.</span> <span class="nav-text">JavaScrpit的三大部分</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ECMAScript-JS核心"><span class="nav-number">1.1.</span> <span class="nav-text">ECMAScript(JS核心)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DOM-文档对象类型"><span class="nav-number">1.2.</span> <span class="nav-text">DOM(文档对象类型)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#DOM级别"><span class="nav-number">1.2.1.</span> <span class="nav-text">DOM级别</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#DOM1级"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">DOM1级</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DOM2级"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">DOM2级</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DOM3级"><span class="nav-number">1.2.1.3.</span> <span class="nav-text">DOM3级</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BOM-浏览器对象模型"><span class="nav-number">1.3.</span> <span class="nav-text">BOM(浏览器对象模型)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Buzzer"><span class="nav-number">2.</span> <span class="nav-text">Buzzer</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#初识JSX"><span class="nav-number">1.</span> <span class="nav-text">初识JSX</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#在JSX中嵌入表达式"><span class="nav-number">2.</span> <span class="nav-text">在JSX中嵌入表达式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JSX也可以作为表达式使用"><span class="nav-number">3.</span> <span class="nav-text">JSX也可以作为表达式使用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JSX中指定属性"><span class="nav-number">4.</span> <span class="nav-text">JSX中指定属性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JSX-Represents-Objects"><span class="nav-number">5.</span> <span class="nav-text">JSX Represents Objects</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Buzzer"><span class="nav-number">6.</span> <span class="nav-text">Buzzer</span></a></li></ol></div>
             
 
           </div>
