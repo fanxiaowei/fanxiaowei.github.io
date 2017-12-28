@@ -540,14 +540,14 @@
 </table>
 <h2 id="Number类型"><a href="#Number类型" class="headerlink" title="Number类型"></a>Number类型</h2><p>ECMAScript中使用<a href="http://blog.csdn.net/k346k346/article/details/50487127" target="_blank" rel="external">IEEE754</a>标准中<strong>双精度浮点数</strong>来表示一个数字，<strong>不区分整数和浮点数</strong>。</p>
 <blockquote>
-<p>IEEE754:<br>在 IEEE754 中，双精度浮点数采用 64 位存储，即 8 个字节表示一个浮点数 。其存储结构如下图所示：<br><img src="/images/js/dataType/iee754.png" alt=""></p>
+<p>IEEE754:<br>在 IEEE754 中，双精度浮点数采用 64 位存储，即 8 个字节表示一个浮点数 。其存储结构如下图所示：<br><img src="/images/iee754.png" alt=""></p>
 <ul>
 <li>第1位：符号位，0表示正数，1表示负数</li>
 <li>第2位到第12位：指数部分</li>
 <li>第13位到第64位：小数部分（即有效数字）</li>
 </ul>
 </blockquote>
-<p>指数位可以通过下面的方法转换为使用的指数值：<br><img src="/images/js/dataType/indexTranform.png" alt=""></p>
+<p>指数位可以通过下面的方法转换为使用的指数值：<br><img src="/images/indexTranform.png" alt=""></p>
 <p>note :<strong>由于保存浮点数值需要的内存是整数值的两倍，因此ECMAScript会</strong>不失时机<strong>的将浮点数值转换为整数值。</strong>其实Number类型采用的是<strong>双精度浮点数</strong>，但是在保存和应用的时候，为了内存和速度考虑，会表现出整数和浮点数的区分。</p>
 <h3 id="浮点数值"><a href="#浮点数值" class="headerlink" title="浮点数值"></a>浮点数值</h3><blockquote>
 <p>浮点数值：数值中<strong>必须</strong>包含一个小数点，并且小数点后面必须至少有一位数值。</p>
