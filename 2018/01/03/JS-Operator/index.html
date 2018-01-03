@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="JavaScrpit的三大部分需要特别注意的是JS≠ECMAScript这里就需要明确的讨论一下JS的组成部分了。JS=ECMAScript(核心)+DOM(文档对象模型)+BOM(浏览器对象模型) ECMAScript(JS核心)ECMAScript规定或者说是定义了如下内容  语法 类型 语句 关键字 保留字 操作符 对象  这里需要明确一点ECMAScript-262定义的ECMAScri">
+<meta name="description" content="ECMAScript-262描述了一组用于操作数据值的操作符，包括算术操作符、位操作符、关系操作符和相等操作符。ECMAScript的操作符与众不同之处在于，它们能适用很多值，例如String,Number,Boolean,甚至是Object。但是这里需要额外注意的是  在这些操作符操作Object类型的数据时，相应的operator通常会调用对象的valueOf()和(或)toString()">
 <meta name="keywords" content="js">
 <meta property="og:type" content="article">
-<meta property="og:title" content="初识JS">
-<meta property="og:url" content="http://yoursite.com/2017/12/20/First-Head-JS/index.html">
+<meta property="og:title" content="JS操作符">
+<meta property="og:url" content="http://yoursite.com/2018/01/03/JS-Operator/index.html">
 <meta property="og:site_name" content="朝花夕拾">
-<meta property="og:description" content="JavaScrpit的三大部分需要特别注意的是JS≠ECMAScript这里就需要明确的讨论一下JS的组成部分了。JS=ECMAScript(核心)+DOM(文档对象模型)+BOM(浏览器对象模型) ECMAScript(JS核心)ECMAScript规定或者说是定义了如下内容  语法 类型 语句 关键字 保留字 操作符 对象  这里需要明确一点ECMAScript-262定义的ECMAScri">
+<meta property="og:description" content="ECMAScript-262描述了一组用于操作数据值的操作符，包括算术操作符、位操作符、关系操作符和相等操作符。ECMAScript的操作符与众不同之处在于，它们能适用很多值，例如String,Number,Boolean,甚至是Object。但是这里需要额外注意的是  在这些操作符操作Object类型的数据时，相应的operator通常会调用对象的valueOf()和(或)toString()">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-12-28T14:42:17.533Z">
+<meta property="og:updated_time" content="2018-01-03T06:31:48.351Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="初识JS">
-<meta name="twitter:description" content="JavaScrpit的三大部分需要特别注意的是JS≠ECMAScript这里就需要明确的讨论一下JS的组成部分了。JS=ECMAScript(核心)+DOM(文档对象模型)+BOM(浏览器对象模型) ECMAScript(JS核心)ECMAScript规定或者说是定义了如下内容  语法 类型 语句 关键字 保留字 操作符 对象  这里需要明确一点ECMAScript-262定义的ECMAScri">
+<meta name="twitter:title" content="JS操作符">
+<meta name="twitter:description" content="ECMAScript-262描述了一组用于操作数据值的操作符，包括算术操作符、位操作符、关系操作符和相等操作符。ECMAScript的操作符与众不同之处在于，它们能适用很多值，例如String,Number,Boolean,甚至是Object。但是这里需要额外注意的是  在这些操作符操作Object类型的数据时，相应的operator通常会调用对象的valueOf()和(或)toString()">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/12/20/First-Head-JS/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/01/03/JS-Operator/"/>
 
 
 
 
 
-  <title>初识JS | 朝花夕拾</title>
+  <title>JS操作符 | 朝花夕拾</title>
   
 
 
@@ -253,7 +253,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/20/First-Head-JS/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/03/JS-Operator/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="踽踽前行的路人">
@@ -270,7 +270,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">初识JS</h1>
+          <h1 class="post-title" itemprop="name headline">JS操作符</h1>
         
 
         <div class="post-meta">
@@ -282,8 +282,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-20T15:13:01+08:00">
-                2017-12-20
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-03T10:56:56+08:00">
+                2018-01-03
               </time>
             
 
@@ -317,6 +317,8 @@
           
 
           
+            
+          
 
           
           
@@ -341,64 +343,195 @@
 
       
         <hr>
-<h1 id="JavaScrpit的三大部分"><a href="#JavaScrpit的三大部分" class="headerlink" title="JavaScrpit的三大部分"></a>JavaScrpit的三大部分</h1><p>需要特别注意的是JS≠ECMAScript<br>这里就需要明确的讨论一下JS的组成部分了。<br>JS=ECMAScript(核心)+DOM(文档对象模型)+BOM(浏览器对象模型)</p>
-<h2 id="ECMAScript-JS核心"><a href="#ECMAScript-JS核心" class="headerlink" title="ECMAScript(JS核心)"></a>ECMAScript(JS核心)</h2><p>ECMAScript规定或者说是定义了如下内容</p>
+<p>ECMAScript-262描述了一组用于<strong>操作数据值</strong>的<strong>操作符</strong>，包括<em>算术</em>操作符、<em>位</em>操作符、<em>关系</em>操作符和<em>相等</em>操作符。ECMAScript的操作符与众不同之处在于，它们能适用很多值，例如String,Number,Boolean,甚至是Object。<br>但是这里需要额外注意的是</p>
+<blockquote>
+<p>在这些操作符操作Object类型的数据时，相应的operator通常会调用对象的<code>valueOf()</code>和(或)<code>toString()</code>,以便取得可以操作的值。</p>
+</blockquote>
+<h1 id="一元operator"><a href="#一元operator" class="headerlink" title="一元operator"></a>一元operator</h1><blockquote>
+<p>一元操作符：只能操作一个值的操作符。</p>
+</blockquote>
+<h2 id="递增递减operator"><a href="#递增递减operator" class="headerlink" title="递增递减operator"></a>递增递减operator</h2><p>ECMAScript中的递增和递减操作符直接<strong>借鉴</strong>C。<br>如下简单罗列了递增操作符针对于不同数据类型的转换公式</p>
+<table>
+<thead>
+<tr>
+<th>数据类型</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>String</td>
+<td>针对String类型的数量来说，都是经过Number(StringVariable)将StringVariable转换为Number类型，但是在针对不同的String数据的时候，就会发生不同的结果 <br>1:StringVariable包含有效数字 ==&gt;Number(StringVariable)+1<br>2:StringVariable不包含有效数字 ==&gt;NaN（由于Number()针对没有有效数字的String变量结果都是NaN，同时NaN参与任何运算的结果也都是NaN）</td>
+</tr>
+<tr>
+<td>Boolean</td>
+<td>1:false ==&gt; 0+1<br>2:true ==&gt;1+1</td>
+</tr>
+<tr>
+<td>Object</td>
+<td>1：调用对象的valueOf(),提供一个可供<strong>操作</strong>的值，然后根据上诉规则进行判断<br>2:如果1的结果是NaN，就需要调用Object的<code>toString()</code></td>
+</tr>
+<tr>
+<td>Undefined</td>
+<td>NaN</td>
+</tr>
+<tr>
+<td>null</td>
+<td>Number(null)+1</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>通过上诉的总结发现，这里有一个数值转换的内容，其实在递增/递减操作符针对不同<strong>数据类型</strong>操作的时候，在js内部其实都是经过内置的操作函数进行处理的，而这个内置的操作函数就是<code>Number()</code></p>
+</blockquote>
+<h1 id="位操作符"><a href="#位操作符" class="headerlink" title="位操作符"></a>位操作符</h1><blockquote>
+<p>位操作符用于在最基本的层次上==&gt;按<strong>内存</strong>中表示数值的<em>位</em>来操作数值。</p>
+</blockquote>
+<p>ECMAScript中的所有数值都以IEEE-754 64位格式存储，但<strong>位操作符</strong>并不直接操作64位的值。而是先将64位的值<strong>转换</strong>为32位的<strong>整数</strong>，最后再将结果转换为64位。</p>
+<p>如果对于非数值的数值进行位操作，首先先对该数据进行<code>Number()</code>操作(自动完成)，然后进行对应的位操作，所以无论位操作数对什么数据类型进行操作，返回的<strong>结果</strong>都是<strong>一个数值</strong>。</p>
+<h2 id="按位非-NOT"><a href="#按位非-NOT" class="headerlink" title="按位非(NOT)"></a>按位非(NOT)</h2><p>按位非操作符由一个波浪线(~)表示，执行结果是返回<strong>数值的反码</strong>。<br>本质：操作数的<strong>数值</strong>-1</p>
+<h2 id="按位与-AND"><a href="#按位与-AND" class="headerlink" title="按位与(AND)"></a>按位与(AND)</h2><p>从本质上将，按位与操作就是将两个<strong>数值</strong>的<strong>每一位</strong>对齐，然后根据一定的规则返回对应的结果。</p>
+<table>
+<thead>
+<tr>
+<th>第一个数值的位</th>
+<th>第二个数值的位</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>也就是说对于两个操作数中对应的位来说，<strong>相同为1，不同为0</strong></p>
+<h2 id="按位或-OR"><a href="#按位或-OR" class="headerlink" title="按位或(OR)"></a>按位或(OR)</h2><table>
+<thead>
+<tr>
+<th>第一个数值的位</th>
+<th>第二个数值的位</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>对于<strong>或</strong>运算来将，就是有<strong>有真则真</strong>。</p>
+<h2 id="按位异或-XOR"><a href="#按位异或-XOR" class="headerlink" title="按位异或(XOR)"></a>按位异或(XOR)</h2><table>
+<thead>
+<tr>
+<th>第一个数值的位</th>
+<th>第二个数值的位</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p> 也就是说的额<strong>相同为0 ，不同为1</strong></p>
+<h1 id="布尔操作符"><a href="#布尔操作符" class="headerlink" title="布尔操作符"></a>布尔操作符</h1><p>布尔操作符一共三个：非(NOT)、与(AND)、或(OR).</p>
+<h2 id="逻辑非"><a href="#逻辑非" class="headerlink" title="逻辑非"></a>逻辑非</h2><p>可以应用于ECMAScript中的任何值，无论这个值是什么数值类型，该操作符都会返回一个<strong>布尔值</strong>。<br>！操作首先将他的操作数<strong>转换</strong>为一个Boolean值，然后将其<strong>求反</strong>。<br>对于进行<strong>逻辑非</strong>处理的数据需要额外记得的是，对一个数据进行操作，除了下面的<strong>六</strong>种情况，其他的都返回的是<strong>ture</strong>。 </p>
 <ul>
-<li>语法</li>
-<li>类型</li>
-<li>语句</li>
-<li>关键字</li>
-<li>保留字</li>
-<li>操作符</li>
-<li>对象</li>
+<li>‘’(空String) </li>
+<li>0(Number)</li>
+<li>NaN(Number)</li>
+<li>null(Object)</li>
+<li>false(Boolean)</li>
+<li>undefined(Undefined)</li>
 </ul>
-<p><em>这里需要明确一点</em><br>ECMAScript-262定义的ECMAScript和Web浏览器没有任何依赖关系，ECMAScript并不包含输入、输出定义。我们所说的Web浏览器只是ECMAScript实现的<strong>宿主环境</strong>之一。</p>
-<blockquote>
-<p>宿主环境&gt;不仅提供基本的ECMAScript的实现，同时也会提供ECMAScript的扩展，以便语言和宿主环境进行对接及交互。就针对Web浏览器而言，DOM利用ECMAScript所提供的核心类型和语法提供更多的功能，以便实现<strong>针对</strong>特定宿主环境的操作。</p>
-</blockquote>
-<h2 id="DOM-文档对象类型"><a href="#DOM-文档对象类型" class="headerlink" title="DOM(文档对象类型)"></a>DOM(文档对象类型)</h2><blockquote>
-<p>DOM&gt;是针对HTML和XML文档的一个API。DOM将整个页面<em>映射</em>一个层次化的<strong>节点树</strong>，允许开发人员对页面进行CURD。</p>
-</blockquote>
-<h3 id="DOM级别"><a href="#DOM级别" class="headerlink" title="DOM级别"></a>DOM级别</h3><p>由于浏览器的发展，对DOM也不断的进行扩展，所以在不同的阶段，产生向上兼容的DOM版本。</p>
-<h4 id="DOM1级"><a href="#DOM1级" class="headerlink" title="DOM1级"></a>DOM1级</h4><p>DOM1级由两部分构成</p>
-<ol>
-<li><p>DOM Core(DOM 核心)</p>
-<blockquote>
-<p>DOM Core &gt;规定如何<strong>映射</strong>基于XML的文档机构，以便简化对文档中<em>任意</em>部分的访问和操作。</p>
-</blockquote>
-</li>
-<li><p>DOM HTML</p>
-<blockquote>
-<p>DOM HTML &gt; 在DOM Core的基础上加以<strong>扩展</strong>，添加了针对HTML的对象和方法。</p>
-</blockquote>
-</li>
-</ol>
-<p>DOM1目标主要是映射文档的结构。</p>
-<h4 id="DOM2级"><a href="#DOM2级" class="headerlink" title="DOM2级"></a>DOM2级</h4><p>DOM2级在原来DOM1级的基础上又扩充了鼠标和用户界面事件、范围、迭代DOM文档的方法等模块。同时通过<strong>对象接口</strong>增加了对CSS的支持。<br>DOM2引入下列新模块</p>
-<ol>
-<li>DOM Views(DOM视图) :定义了跟踪不同文档视图的接口；</li>
-<li>DOM Event(DOM事件) :定义了事件和事件处理的接口；</li>
-<li>DOM Style(DOM样式) ：定义了基于CSS为元素应用样式的接口；</li>
-<li>DOM Traversal and Range(DOM遍历和范围)：定义了遍历和操作文档树的接口；</li>
-</ol>
-<h4 id="DOM3级"><a href="#DOM3级" class="headerlink" title="DOM3级"></a>DOM3级</h4><p>DOM3级引入下列新模块</p>
-<ol>
-<li>DOM Load and Save(DOM加载和保存):以统一方式加载和保存文档的方法；</li>
-<li>DOM Validation(DOM验证):验证文档的方法</li>
-</ol>
-<h2 id="BOM-浏览器对象模型"><a href="#BOM-浏览器对象模型" class="headerlink" title="BOM(浏览器对象模型)"></a>BOM(浏览器对象模型)</h2><p>开发人员使用BOM可以控制浏览器显示的页面以外的部分。<br><em>从根本上讲，BOM只处理浏览器窗口和框架。</em>但是开发人员也把所有针对浏览器的JS扩展算作BOM的一部分。</p>
+<p>其实对数据进行逻辑非处理，在js内核中，进行的是也是<strong>数值转换</strong>。对一个数值进行逻辑非操作，首先利用内置的<strong>转换函数</strong><code>Boolean()</code>对操作数进行转换，然后在转换的结果中进行取反。</p>
+<h2 id="逻辑与"><a href="#逻辑与" class="headerlink" title="逻辑与"></a>逻辑与</h2><p>逻辑与操作可以应用于<strong>任何类型</strong>的操作数，而不仅仅是Boolean。在有一个操作数不是布尔值的情况下，逻辑与操作就<strong>不一定返回布尔值</strong>。<br>逻辑与操作属于<strong>短路操作</strong>，即如果第一个操作数能够<strong>决定结果</strong>(如果第一个值进行Boolean()操作之后是false)，那么就不会再对第二个操作数<strong>求值</strong></p>
+<h2 id="逻辑或"><a href="#逻辑或" class="headerlink" title="逻辑或"></a>逻辑或</h2><p>与逻辑与操作符相似，逻辑或操作符也是<strong>短路操作符</strong>。</p>
+<h1 id="加性操作符"><a href="#加性操作符" class="headerlink" title="加性操作符"></a>加性操作符</h1><p>对于加法操作符(+)来将，根据参与运算的数据类型不同结果不同</p>
+<table>
+<thead>
+<tr>
+<th>参与运算的操作符类型</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>都是Number</td>
+<td>常c规的加法运行</td>
+</tr>
+<tr>
+<td>都是String</td>
+<td>第二个操作数与第一个操作数<strong>拼接</strong></td>
+</tr>
+<tr>
+<td>只有一个操作符为String,则对另外一个操作数转为String</td>
+<td><strong>拼接在一起</strong></td>
+</tr>
+</tbody>
+</table>
+<p>针对于有一个操作符是String，对于另外一个操作符来将分为两大类</p>
 <ul>
-<li>弹窗新浏览器窗口的功能；</li>
-<li>移动、缩放和关闭浏览器窗功能；</li>
-<li>提供浏览器详细信息的navigator对象；</li>
-<li>提供浏览器所加载页面的详细信息的location对象；</li>
-<li>提供用户显示器分辨率详细信息的screen对象；</li>
-<li>对cookies的支持</li>
-<li>像XMLHttpRequest自定义对象。</li>
+<li>操作数为Object/Number/Boolen ==&gt;在进行操作的时候，调用对应数据的<code>toString()</code>取得对应的字符串值。</li>
+<li>操作数为null/undefined ==&gt;调用String(),转为对应的String类型。</li>
 </ul>
-<h1 id="Buzzer"><a href="#Buzzer" class="headerlink" title="Buzzer"></a>Buzzer</h1><p>其实可以用一道菜来形容JS中ECMAScript、DOM、BOM的关系</p>
+<h1 id="关系操作符"><a href="#关系操作符" class="headerlink" title="关系操作符"></a>关系操作符</h1><p>当关系操作符使用了<strong>非数值</strong>，需要进行数据<strong>转换</strong></p>
+<p>| 操作符类型 | 结果 |<br>| 都是数值 | 数值比较 |<br>| 都是字符串 | 字符编码值的比较 |<br>| 一个操作数是数值，则将另外一个操作数转换为数值 | 数值比较 |<br>| 一个操作数是对象，则调用<strong>这个对象</strong>的valueOf()方法，将得到结果运行上述规格进行比较，如果没有valueOf(),就调用对象的toString() | 数值比较 |<br>| 如果操作数是Boolean | 数值比较 |</p>
 <blockquote>
-<p>宫保鸡丁(web page)的做法<br>预备材料：鸡肉(html or xml)、佐料(css)<br>主厨：JS<br>主厨(JS)利用手中的刀(DOM){该刀不仅仅切鸡肉}将鸡肉切成块状(web page object/API),利用自己娴熟的技术(ECMAScirpt)<br>针对不同的种类的鸡块(API)配合佐料(css)和火候(BOM)产生的温度(browser object/API{XMLHTTPRequest对象，location对象})烹饪出可口的page。</p>
+<p>从上面的table中可以看到，对于关系操作符的运算，最后会被转换为<strong>数值</strong>的比较，比较无论什么类型的数据在内存中都是以二进制形式存储，采用数值比较速度比较快</p>
 </blockquote>
 
       
@@ -459,15 +592,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2018/01/02/React-JSX-In-depth/" rel="next" title="深度解析JSX">
+                <i class="fa fa-chevron-left"></i> 深度解析JSX
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/12/21/First-Head-React/" rel="prev" title="React概述">
-                React概述 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -501,6 +634,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -641,7 +778,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#JavaScrpit的三大部分"><span class="nav-number">1.</span> <span class="nav-text">JavaScrpit的三大部分</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ECMAScript-JS核心"><span class="nav-number">1.1.</span> <span class="nav-text">ECMAScript(JS核心)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DOM-文档对象类型"><span class="nav-number">1.2.</span> <span class="nav-text">DOM(文档对象类型)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#DOM级别"><span class="nav-number">1.2.1.</span> <span class="nav-text">DOM级别</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#DOM1级"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">DOM1级</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DOM2级"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">DOM2级</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DOM3级"><span class="nav-number">1.2.1.3.</span> <span class="nav-text">DOM3级</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BOM-浏览器对象模型"><span class="nav-number">1.3.</span> <span class="nav-text">BOM(浏览器对象模型)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Buzzer"><span class="nav-number">2.</span> <span class="nav-text">Buzzer</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一元operator"><span class="nav-number">1.</span> <span class="nav-text">一元operator</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#递增递减operator"><span class="nav-number">1.1.</span> <span class="nav-text">递增递减operator</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#位操作符"><span class="nav-number">2.</span> <span class="nav-text">位操作符</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#按位非-NOT"><span class="nav-number">2.1.</span> <span class="nav-text">按位非(NOT)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#按位与-AND"><span class="nav-number">2.2.</span> <span class="nav-text">按位与(AND)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#按位或-OR"><span class="nav-number">2.3.</span> <span class="nav-text">按位或(OR)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#按位异或-XOR"><span class="nav-number">2.4.</span> <span class="nav-text">按位异或(XOR)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#布尔操作符"><span class="nav-number">3.</span> <span class="nav-text">布尔操作符</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#逻辑非"><span class="nav-number">3.1.</span> <span class="nav-text">逻辑非</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#逻辑与"><span class="nav-number">3.2.</span> <span class="nav-text">逻辑与</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#逻辑或"><span class="nav-number">3.3.</span> <span class="nav-text">逻辑或</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#加性操作符"><span class="nav-number">4.</span> <span class="nav-text">加性操作符</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#关系操作符"><span class="nav-number">5.</span> <span class="nav-text">关系操作符</span></a></li></ol></div>
             
 
           </div>

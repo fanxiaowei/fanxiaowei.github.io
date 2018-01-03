@@ -252,6 +252,338 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/03/JS-Operator/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="踽踽前行的路人">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="朝花夕拾">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/01/03/JS-Operator/" itemprop="url">JS操作符</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-03T10:56:56+08:00">
+                2018-01-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/js/" itemprop="url" rel="index">
+                    <span itemprop="name">js</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <hr>
+<p>ECMAScript-262描述了一组用于<strong>操作数据值</strong>的<strong>操作符</strong>，包括<em>算术</em>操作符、<em>位</em>操作符、<em>关系</em>操作符和<em>相等</em>操作符。ECMAScript的操作符与众不同之处在于，它们能适用很多值，例如String,Number,Boolean,甚至是Object。<br>但是这里需要额外注意的是</p>
+<blockquote>
+<p>在这些操作符操作Object类型的数据时，相应的operator通常会调用对象的<code>valueOf()</code>和(或)<code>toString()</code>,以便取得可以操作的值。</p>
+</blockquote>
+<h1 id="一元operator"><a href="#一元operator" class="headerlink" title="一元operator"></a>一元operator</h1><blockquote>
+<p>一元操作符：只能操作一个值的操作符。</p>
+</blockquote>
+<h2 id="递增递减operator"><a href="#递增递减operator" class="headerlink" title="递增递减operator"></a>递增递减operator</h2><p>ECMAScript中的递增和递减操作符直接<strong>借鉴</strong>C。<br>如下简单罗列了递增操作符针对于不同数据类型的转换公式</p>
+<table>
+<thead>
+<tr>
+<th>数据类型</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>String</td>
+<td>针对String类型的数量来说，都是经过Number(StringVariable)将StringVariable转换为Number类型，但是在针对不同的String数据的时候，就会发生不同的结果 <br>1:StringVariable包含有效数字 ==&gt;Number(StringVariable)+1<br>2:StringVariable不包含有效数字 ==&gt;NaN（由于Number()针对没有有效数字的String变量结果都是NaN，同时NaN参与任何运算的结果也都是NaN）</td>
+</tr>
+<tr>
+<td>Boolean</td>
+<td>1:false ==&gt; 0+1<br>2:true ==&gt;1+1</td>
+</tr>
+<tr>
+<td>Object</td>
+<td>1：调用对象的valueOf(),提供一个可供<strong>操作</strong>的值，然后根据上诉规则进行判断<br>2:如果1的结果是NaN，就需要调用Object的<code>toString()</code></td>
+</tr>
+<tr>
+<td>Undefined</td>
+<td>NaN</td>
+</tr>
+<tr>
+<td>null</td>
+<td>Number(null)+1</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>通过上诉的总结发现，这里有一个数值转换的内容，其实在递增/递减操作符针对不同<strong>数据类型</strong>操作的时候，在js内部其实都是经过内置的操作函数进行处理的，而这个内置的操作函数就是<code>Number()</code></p>
+</blockquote>
+<h1 id="位操作符"><a href="#位操作符" class="headerlink" title="位操作符"></a>位操作符</h1><blockquote>
+<p>位操作符用于在最基本的层次上==&gt;按<strong>内存</strong>中表示数值的<em>位</em>来操作数值。</p>
+</blockquote>
+<p>ECMAScript中的所有数值都以IEEE-754 64位格式存储，但<strong>位操作符</strong>并不直接操作64位的值。而是先将64位的值<strong>转换</strong>为32位的<strong>整数</strong>，最后再将结果转换为64位。</p>
+<p>如果对于非数值的数值进行位操作，首先先对该数据进行<code>Number()</code>操作(自动完成)，然后进行对应的位操作，所以无论位操作数对什么数据类型进行操作，返回的<strong>结果</strong>都是<strong>一个数值</strong>。</p>
+<h2 id="按位非-NOT"><a href="#按位非-NOT" class="headerlink" title="按位非(NOT)"></a>按位非(NOT)</h2><p>按位非操作符由一个波浪线(~)表示，执行结果是返回<strong>数值的反码</strong>。<br>本质：操作数的<strong>数值</strong>-1</p>
+<h2 id="按位与-AND"><a href="#按位与-AND" class="headerlink" title="按位与(AND)"></a>按位与(AND)</h2><p>从本质上将，按位与操作就是将两个<strong>数值</strong>的<strong>每一位</strong>对齐，然后根据一定的规则返回对应的结果。</p>
+<table>
+<thead>
+<tr>
+<th>第一个数值的位</th>
+<th>第二个数值的位</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>也就是说对于两个操作数中对应的位来说，<strong>相同为1，不同为0</strong></p>
+<h2 id="按位或-OR"><a href="#按位或-OR" class="headerlink" title="按位或(OR)"></a>按位或(OR)</h2><table>
+<thead>
+<tr>
+<th>第一个数值的位</th>
+<th>第二个数值的位</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>对于<strong>或</strong>运算来将，就是有<strong>有真则真</strong>。</p>
+<h2 id="按位异或-XOR"><a href="#按位异或-XOR" class="headerlink" title="按位异或(XOR)"></a>按位异或(XOR)</h2><table>
+<thead>
+<tr>
+<th>第一个数值的位</th>
+<th>第二个数值的位</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p> 也就是说的额<strong>相同为0 ，不同为1</strong></p>
+<h1 id="布尔操作符"><a href="#布尔操作符" class="headerlink" title="布尔操作符"></a>布尔操作符</h1><p>布尔操作符一共三个：非(NOT)、与(AND)、或(OR).</p>
+<h2 id="逻辑非"><a href="#逻辑非" class="headerlink" title="逻辑非"></a>逻辑非</h2><p>可以应用于ECMAScript中的任何值，无论这个值是什么数值类型，该操作符都会返回一个<strong>布尔值</strong>。<br>！操作首先将他的操作数<strong>转换</strong>为一个Boolean值，然后将其<strong>求反</strong>。<br>对于进行<strong>逻辑非</strong>处理的数据需要额外记得的是，对一个数据进行操作，除了下面的<strong>六</strong>种情况，其他的都返回的是<strong>ture</strong>。 </p>
+<ul>
+<li>‘’(空String) </li>
+<li>0(Number)</li>
+<li>NaN(Number)</li>
+<li>null(Object)</li>
+<li>false(Boolean)</li>
+<li>undefined(Undefined)</li>
+</ul>
+<p>其实对数据进行逻辑非处理，在js内核中，进行的是也是<strong>数值转换</strong>。对一个数值进行逻辑非操作，首先利用内置的<strong>转换函数</strong><code>Boolean()</code>对操作数进行转换，然后在转换的结果中进行取反。</p>
+<h2 id="逻辑与"><a href="#逻辑与" class="headerlink" title="逻辑与"></a>逻辑与</h2><p>逻辑与操作可以应用于<strong>任何类型</strong>的操作数，而不仅仅是Boolean。在有一个操作数不是布尔值的情况下，逻辑与操作就<strong>不一定返回布尔值</strong>。<br>逻辑与操作属于<strong>短路操作</strong>，即如果第一个操作数能够<strong>决定结果</strong>(如果第一个值进行Boolean()操作之后是false)，那么就不会再对第二个操作数<strong>求值</strong></p>
+<h2 id="逻辑或"><a href="#逻辑或" class="headerlink" title="逻辑或"></a>逻辑或</h2><p>与逻辑与操作符相似，逻辑或操作符也是<strong>短路操作符</strong>。</p>
+<h1 id="加性操作符"><a href="#加性操作符" class="headerlink" title="加性操作符"></a>加性操作符</h1><p>对于加法操作符(+)来将，根据参与运算的数据类型不同结果不同</p>
+<table>
+<thead>
+<tr>
+<th>参与运算的操作符类型</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>都是Number</td>
+<td>常c规的加法运行</td>
+</tr>
+<tr>
+<td>都是String</td>
+<td>第二个操作数与第一个操作数<strong>拼接</strong></td>
+</tr>
+<tr>
+<td>只有一个操作符为String,则对另外一个操作数转为String</td>
+<td><strong>拼接在一起</strong></td>
+</tr>
+</tbody>
+</table>
+<p>针对于有一个操作符是String，对于另外一个操作符来将分为两大类</p>
+<ul>
+<li>操作数为Object/Number/Boolen ==&gt;在进行操作的时候，调用对应数据的<code>toString()</code>取得对应的字符串值。</li>
+<li>操作数为null/undefined ==&gt;调用String(),转为对应的String类型。</li>
+</ul>
+<h1 id="关系操作符"><a href="#关系操作符" class="headerlink" title="关系操作符"></a>关系操作符</h1><p>当关系操作符使用了<strong>非数值</strong>，需要进行数据<strong>转换</strong></p>
+<p>| 操作符类型 | 结果 |<br>| 都是数值 | 数值比较 |<br>| 都是字符串 | 字符编码值的比较 |<br>| 一个操作数是数值，则将另外一个操作数转换为数值 | 数值比较 |<br>| 一个操作数是对象，则调用<strong>这个对象</strong>的valueOf()方法，将得到结果运行上述规格进行比较，如果没有valueOf(),就调用对象的toString() | 数值比较 |<br>| 如果操作数是Boolean | 数值比较 |</p>
+<blockquote>
+<p>从上面的table中可以看到，对于关系操作符的运算，最后会被转换为<strong>数值</strong>的比较，比较无论什么类型的数据在内存中都是以二进制形式存储，采用数值比较速度比较快</p>
+</blockquote>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/02/React-JSX-In-depth/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -883,9 +1215,9 @@
 <h2 id="Undefined类型"><a href="#Undefined类型" class="headerlink" title="Undefined类型"></a>Undefined类型</h2><p>Undefined类型<em>只有</em>一个值，既特殊的undefined。在使用var/let/const等操作符声明变量但是没有赋初值时，这个变量的值就是undefined。</p>
 <blockquote>
 <p>undefined的主要目的是用于比较，而在ECMA-262第三版之前是不存在的。在第三版引入这个值是为了正式区分<strong>空对象指针</strong>(null)与未经初始化的变量。</p>
+</blockquote>
 <h2 id="Null类型"><a href="#Null类型" class="headerlink" title="Null类型"></a>Null类型</h2><p>Null类型是第二个<strong>只有一个值</strong>的数据类型，这个特殊的值是null。从逻辑角度来看，null值表示一个<strong>空对象指针</strong>，而这也是使用typeof检测null值的时会返回”object”的原因。</p>
 <h2 id="Boolean"><a href="#Boolean" class="headerlink" title="Boolean"></a>Boolean</h2><p>Boolean类型只有两个字面量：true和false。<br>虽然Boolean类型的字面量只有两个，但是ECMAScript中所有类型的值都有与这两个Boolean值<strong>等价</strong>的值。要将一个值转换为其对应的Boolean值，可以调用<em>转型</em>函数–Boolean();</p>
-</blockquote>
 <table>
 <thead>
 <tr>
@@ -1984,159 +2316,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/21/First-Head-React/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="踽踽前行的路人">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="朝花夕拾">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/12/21/First-Head-React/" itemprop="url">React概述</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-21T16:02:34+08:00">
-                2017-12-21
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/React/" itemprop="url" rel="index">
-                    <span itemprop="name">React</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <hr>
-<h1 id="JavaScript-library-JS工具库"><a href="#JavaScript-library-JS工具库" class="headerlink" title="JavaScript library(JS工具库)"></a>JavaScript library(JS工具库)</h1><blockquote>
-<p>React是利用JS来构建UI界面的工具库。</p>
-</blockquote>
-<h2 id="Declarative"><a href="#Declarative" class="headerlink" title="Declarative"></a>Declarative</h2><blockquote>
-<p>Declarative Programming :也就是业界经常说的声明式编程。声明式编程的定义：如果一个程序只是描述了某事而不是如何生成，那么就是表述性的。例如HTML是表述性的，因为只是描述了网页中含有了什么，而不是如何在一个计算机屏幕上实际显示。</p>
-</blockquote>
-<p>下面的例子是用React写的实例代码，可以看到对于React来构建页面其实是和HTML构建页面是一样的，只是单纯的来堆积页面中用的Element。只是针对于React来说，Element创建之后，是被挂载在Virtual DOM上的，在之后的某一个时段才会被真正挂载在真实DOM上。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">NameForm</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</div><div class="line">  <span class="keyword">constructor</span>(props) &#123;</div><div class="line">    <span class="keyword">super</span>(props);</div><div class="line">     <span class="keyword">this</span>.state = &#123;<span class="attr">value</span>: <span class="string">''</span>&#125;;</div><div class="line"></div><div class="line">    <span class="keyword">this</span>.handleChange = <span class="keyword">this</span>.handleChange.bind(<span class="keyword">this</span>);</div><div class="line">    <span class="keyword">this</span>.handleSubmit = <span class="keyword">this</span>.handleSubmit.bind(<span class="keyword">this</span>);</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  handleChange(event) &#123;</div><div class="line">    <span class="keyword">this</span>.setState(&#123;<span class="attr">value</span>: event.target.value&#125;);</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  handleSubmit(event) &#123;</div><div class="line">    alert(<span class="string">'A name was submitted: '</span> + <span class="keyword">this</span>.state.value);</div><div class="line">    event.preventDefault();</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  render() &#123;</div><div class="line">    <span class="keyword">return</span> (</div><div class="line">      &lt;form onSubmit=&#123;<span class="keyword">this</span>.handleSubmit&#125;&gt;</div><div class="line">        &lt;label&gt;</div><div class="line">          Name:</div><div class="line">          &lt;input type=<span class="string">"text"</span> value=&#123;<span class="keyword">this</span>.state.value&#125; onChange=&#123;<span class="keyword">this</span>.handleChange&#125; /&gt;</div><div class="line">        &lt;<span class="regexp">/label&gt;</span></div><div class="line"><span class="regexp">        &lt;input type="submit" value="Submit" /</span>&gt;</div><div class="line">      &lt;<span class="regexp">/form&gt;</span></div><div class="line"><span class="regexp">    );</span></div><div class="line"><span class="regexp">  &#125;</span></div><div class="line"><span class="regexp">&#125;</span></div></pre></td></tr></table></figure></p>
-<h2 id="Component-Based"><a href="#Component-Based" class="headerlink" title="Component-Based"></a>Component-Based</h2><p>可以这样认为用React来构建UI界面的时候，类似于搭<em>积木</em>，而这些<em>积木</em>从React角度来将，就是所谓的<strong>组件</strong>。<br>可以这样说React页面都是用组件来堆积起来的。这样做的好处就是实现组件的<strong>共用</strong>。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//CommonA.js</span></div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">CommonA</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span></span>&#123;</div><div class="line">    <span class="keyword">constructor</span>(props,context)&#123;</div><div class="line">        <span class="keyword">super</span>(props,context)</div><div class="line">    &#125;</div><div class="line">    render()&#123;</div><div class="line">        <span class="keyword">return</span>(</div><div class="line">            &lt;div&gt;</div><div class="line">                我是一个萌萌哒的汉子！</div><div class="line">            &lt;<span class="regexp">/div&gt;</span></div><div class="line"><span class="regexp">        )</span></div><div class="line"><span class="regexp">    &#125;</span></div><div class="line"><span class="regexp">&#125;</span></div><div class="line"><span class="regexp">/</span><span class="regexp">/CommonB.js</span></div><div class="line"><span class="regexp">export default class CommonB extends React.Component&#123;</span></div><div class="line"><span class="regexp">    constructor(props,context)&#123;</span></div><div class="line"><span class="regexp">        super(props,context)</span></div><div class="line"><span class="regexp">    &#125;</span></div><div class="line"><span class="regexp">    render()&#123;</span></div><div class="line"><span class="regexp">        return(</span></div><div class="line"><span class="regexp">            &lt;div&gt;</span></div><div class="line"><span class="regexp">                我是另一个汉子！</span></div><div class="line"><span class="regexp">            &lt;/</span>div&gt;</div><div class="line">        )</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="comment">//BusinessModuleA.js</span></div><div class="line"><span class="keyword">import</span> CommonA <span class="keyword">from</span> <span class="string">'CommonA'</span>;</div><div class="line"><span class="keyword">import</span> CommonB <span class="keyword">from</span> <span class="string">'CommonA'</span>;</div><div class="line"><span class="keyword">export</span> <span class="class"><span class="keyword">class</span> <span class="title">BusinessModuleA</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span></span>&#123;</div><div class="line">     <span class="keyword">constructor</span>(props,context)&#123;</div><div class="line">        <span class="keyword">super</span>(props,context)</div><div class="line">    &#125;</div><div class="line">    render()&#123;</div><div class="line">        <span class="keyword">return</span>(</div><div class="line">            &lt;div&gt;</div><div class="line">                &lt;div&gt;</div><div class="line">                    &lt;CommonA/&gt;</div><div class="line">                    &lt;CommonA/&gt;</div><div class="line">                    &lt;CommonB/&gt;</div><div class="line">                &lt;<span class="regexp">/div&gt;</span></div><div class="line"><span class="regexp">                &lt;div&gt;</span></div><div class="line"><span class="regexp">                    &lt;CommonB/</span>&gt;</div><div class="line">                &lt;<span class="regexp">/div&gt;</span></div><div class="line"><span class="regexp">            &lt;/</span>div&gt;</div><div class="line">        )</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h2 id="Learn-Once-Write-Anywhere"><a href="#Learn-Once-Write-Anywhere" class="headerlink" title="Learn Once, Write Anywhere"></a>Learn Once, Write Anywhere</h2><p>利用React开发页面还有一个好处就是，无论你现在正在使用什么技术栈，你都可以随时引入 React 开发新特性。<br>例如，你现在用原生的HTML进行页面的构建，现在想在某一个页面或者页面的一部分使用React。React能够无缝接入。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"reactModule.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span></div><div class="line">        我是用原生写的Element哦！</div><div class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"extendElement"</span>&gt;</span></div><div class="line">        <span class="comment">&lt;!-- This element's contents will be replaced with your component. --&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div></pre></td></tr></table></figure></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//reactModule.js</span></div><div class="line"><span class="keyword">import</span> CommonA <span class="keyword">from</span> <span class="string">'CommonA'</span>;</div><div class="line"><span class="keyword">import</span> CommonB <span class="keyword">from</span> <span class="string">'CommonA'</span>;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">BusinessModuleA</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span></span>&#123;</div><div class="line">     <span class="keyword">constructor</span>(props,context)&#123;</div><div class="line">        <span class="keyword">super</span>(props,context)</div><div class="line">    &#125;</div><div class="line">    render()&#123;</div><div class="line">        <span class="keyword">return</span>(</div><div class="line">            &lt;div&gt;</div><div class="line">                &lt;div&gt;</div><div class="line">                    &lt;CommonA/&gt;</div><div class="line">                    &lt;CommonA/&gt;</div><div class="line">                    &lt;CommonB/&gt;</div><div class="line">                &lt;<span class="regexp">/div&gt;</span></div><div class="line"><span class="regexp">                &lt;div&gt;</span></div><div class="line"><span class="regexp">                    &lt;CommonB/</span>&gt;</div><div class="line">                &lt;<span class="regexp">/div&gt;</span></div><div class="line"><span class="regexp">            &lt;/</span>div&gt;</div><div class="line">        )</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">ReactDOM.render(</div><div class="line">  &lt;BusinessModuleA /&gt;,</div><div class="line">  <span class="built_in">document</span>.getElementById(<span class="string">'extendElement'</span>)</div><div class="line">);</div></pre></td></tr></table></figure>
-<p>如上代码所示，就将React构建的页面融合到原有项目中。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2191,7 +2370,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
