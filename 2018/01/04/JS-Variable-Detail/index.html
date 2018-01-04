@@ -79,18 +79,20 @@
 
 
 
-<meta name="description" content="ECMAScript-262描述了一组用于操作数据值的操作符，包括算术操作符、位操作符、关系操作符和相等操作符。ECMAScript的操作符与众不同之处在于，它们能适用很多值，例如String,Number,Boolean,甚至是Object。但是这里需要额外注意的是  在这些操作符操作Object类型的数据时，相应的operator通常会调用对象的valueOf()和(或)toString()">
+<meta name="description" content="按照ECMAScript-262的定义，JS的变量与其他语言的变量由很大区别。js变量松散类型的本质，决定了它只是在特定时间用于保存特定值的一个名字而已。 基本类型和引用类型的值ECMAScript变量可能包含两种不同数据类型的值：基本类型值和引用类型值。  基本类型值：简单的数据段引用类型值：可能由多个值构成的对象  在将一个值赋给变量时，解析器必须确定这个值是基本类型还是引用类型。针对于5种">
 <meta name="keywords" content="js">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JS操作符">
-<meta property="og:url" content="http://yoursite.com/2018/01/03/JS-Operator/index.html">
+<meta property="og:title" content="JS变量和作用域详解">
+<meta property="og:url" content="http://yoursite.com/2018/01/04/JS-Variable-Detail/index.html">
 <meta property="og:site_name" content="朝花夕拾">
-<meta property="og:description" content="ECMAScript-262描述了一组用于操作数据值的操作符，包括算术操作符、位操作符、关系操作符和相等操作符。ECMAScript的操作符与众不同之处在于，它们能适用很多值，例如String,Number,Boolean,甚至是Object。但是这里需要额外注意的是  在这些操作符操作Object类型的数据时，相应的operator通常会调用对象的valueOf()和(或)toString()">
+<meta property="og:description" content="按照ECMAScript-262的定义，JS的变量与其他语言的变量由很大区别。js变量松散类型的本质，决定了它只是在特定时间用于保存特定值的一个名字而已。 基本类型和引用类型的值ECMAScript变量可能包含两种不同数据类型的值：基本类型值和引用类型值。  基本类型值：简单的数据段引用类型值：可能由多个值构成的对象  在将一个值赋给变量时，解析器必须确定这个值是基本类型还是引用类型。针对于5种">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-01-03T06:31:48.351Z">
+<meta property="og:image" content="http://yoursite.com/image/js/variable/Variable.png">
+<meta property="og:updated_time" content="2018-01-04T13:04:52.943Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="JS操作符">
-<meta name="twitter:description" content="ECMAScript-262描述了一组用于操作数据值的操作符，包括算术操作符、位操作符、关系操作符和相等操作符。ECMAScript的操作符与众不同之处在于，它们能适用很多值，例如String,Number,Boolean,甚至是Object。但是这里需要额外注意的是  在这些操作符操作Object类型的数据时，相应的operator通常会调用对象的valueOf()和(或)toString()">
+<meta name="twitter:title" content="JS变量和作用域详解">
+<meta name="twitter:description" content="按照ECMAScript-262的定义，JS的变量与其他语言的变量由很大区别。js变量松散类型的本质，决定了它只是在特定时间用于保存特定值的一个名字而已。 基本类型和引用类型的值ECMAScript变量可能包含两种不同数据类型的值：基本类型值和引用类型值。  基本类型值：简单的数据段引用类型值：可能由多个值构成的对象  在将一个值赋给变量时，解析器必须确定这个值是基本类型还是引用类型。针对于5种">
+<meta name="twitter:image" content="http://yoursite.com/image/js/variable/Variable.png">
 
 
 
@@ -120,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/01/03/JS-Operator/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/01/04/JS-Variable-Detail/"/>
 
 
 
 
 
-  <title>JS操作符 | 朝花夕拾</title>
+  <title>JS变量和作用域详解 | 朝花夕拾</title>
   
 
 
@@ -253,7 +255,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/03/JS-Operator/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/04/JS-Variable-Detail/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="踽踽前行的路人">
@@ -270,7 +272,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">JS操作符</h1>
+          <h1 class="post-title" itemprop="name headline">JS变量和作用域详解</h1>
         
 
         <div class="post-meta">
@@ -282,8 +284,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-03T10:56:56+08:00">
-                2018-01-03
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-04T19:21:27+08:00">
+                2018-01-04
               </time>
             
 
@@ -343,196 +345,37 @@
 
       
         <hr>
-<p>ECMAScript-262描述了一组用于<strong>操作数据值</strong>的<strong>操作符</strong>，包括<em>算术</em>操作符、<em>位</em>操作符、<em>关系</em>操作符和<em>相等</em>操作符。ECMAScript的操作符与众不同之处在于，它们能适用很多值，例如String,Number,Boolean,甚至是Object。<br>但是这里需要额外注意的是</p>
+<p>按照ECMAScript-262的定义，JS的变量与其他语言的变量由很大区别。js变量<strong>松散类型</strong>的本质，决定了它只是在<strong>特定时间</strong>用于保存<strong>特定值</strong>的一个<strong>名字</strong>而已。</p>
+<h1 id="基本类型和引用类型的值"><a href="#基本类型和引用类型的值" class="headerlink" title="基本类型和引用类型的值"></a>基本类型和引用类型的值</h1><p>ECMAScript变量可能包含两种不同<strong>数据类型</strong>的值：<strong>基本类型值</strong>和<strong>引用类型值</strong>。</p>
 <blockquote>
-<p>在这些操作符操作Object类型的数据时，相应的operator通常会调用对象的<code>valueOf()</code>和(或)<code>toString()</code>,以便取得可以操作的值。</p>
+<p>基本类型值：简单的<strong>数据段</strong><br>引用类型值：可能由多个值构成的<strong>对象</strong></p>
 </blockquote>
-<h1 id="一元operator"><a href="#一元operator" class="headerlink" title="一元operator"></a>一元operator</h1><blockquote>
-<p>一元操作符：只能操作一个值的操作符。</p>
-</blockquote>
-<h2 id="递增递减operator"><a href="#递增递减operator" class="headerlink" title="递增递减operator"></a>递增递减operator</h2><p>ECMAScript中的递增和递减操作符直接<strong>借鉴</strong>C。<br>如下简单罗列了递增操作符针对于不同数据类型的转换公式</p>
+<p>在将一个值赋给<em>变量</em>时，<strong>解析器</strong>必须确定这个值是基本类型还是引用类型。针对于5种基本数据类型：Undefined,Null,Boolean,Number，String.是<strong>按值</strong>访问的，因为可以操作保存在变量中的<strong>实际</strong>的值。<br>引用类型的值是保存在内存中的对象。在js中不允许<strong>直接访问</strong>内存中的位置。也就是说不能直接操作对象的<strong>内存空间</strong>。在操作对象时，实际上是在操作对象的<strong>引用</strong>而不是实际的对象。因此，<strong>引用类型的值是按引用访问的</strong></p>
+<p>##动态的属性<br><strong>定义</strong>基本类型值和引用类型值的方式是类似的：<strong>创建一个变量并为该变量赋值</strong>。<br>对于引用类型的值，可以为其<strong>添加</strong>属性和方法，也可以<strong>改变</strong>和<strong>删除</strong>其属性和方法。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> person = <span class="keyword">new</span> <span class="built_in">Object</span>();</div><div class="line">person.name = <span class="string">'lihui'</span>;</div><div class="line"><span class="built_in">console</span>.log(person.name);<span class="comment">//lihui</span></div></pre></td></tr></table></figure></p>
+<p>但是对于基本类型来说就有点不同了<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> name = <span class="string">'lihui'</span>;</div><div class="line">name.value = <span class="string">'hehe'</span>;</div><div class="line"><span class="built_in">console</span>.log(name.value);<span class="comment">//undefined</span></div></pre></td></tr></table></figure></p>
+<p>上面两个例子就说明，<strong>只能</strong>给<strong>引用类型值</strong>动态的添加属性。</p>
+<h2 id="复制变量值"><a href="#复制变量值" class="headerlink" title="复制变量值"></a>复制变量值</h2><p>除了保存方式不同，在从一个变量向另一个变量<strong>复制</strong>基本数据值和引用类型值时，也存在不同。<br>如果从一个变量向另一个变量复制<strong>基本类型</strong>的值，会在<strong>变量对象</strong>上<strong>创建</strong>一个新值，然后把该值<strong>复制</strong>到新变量分配的<strong>位置上</strong>。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> num1 = <span class="number">5</span>;</div><div class="line"><span class="keyword">let</span> num2 = num1;</div></pre></td></tr></table></figure></p>
 <table>
 <thead>
 <tr>
-<th>数据类型</th>
-<th>结果</th>
+<th>复制前的变量对象</th>
+<th>复制后变量对象</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>String</td>
-<td>针对String类型的数量来说，都是经过Number(StringVariable)将StringVariable转换为Number类型，但是在针对不同的String数据的时候，就会发生不同的结果 <br>1:StringVariable包含有效数字 ==&gt;Number(StringVariable)+1<br>2:StringVariable不包含有效数字 ==&gt;NaN（由于Number()针对没有有效数字的String变量结果都是NaN，同时NaN参与任何运算的结果也都是NaN）</td>
-</tr>
-<tr>
-<td>Boolean</td>
-<td>1:false ==&gt; 0+1<br>2:true ==&gt;1+1</td>
-</tr>
-<tr>
-<td>Object</td>
-<td>1：调用对象的valueOf(),提供一个可供<strong>操作</strong>的值，然后根据上诉规则进行判断<br>2:如果1的结果是NaN，就需要调用Object的<code>toString()</code></td>
-</tr>
-<tr>
-<td>Undefined</td>
-<td>NaN</td>
-</tr>
-<tr>
-<td>null</td>
-<td>Number(null)+1</td>
+<td>====<br>num1 = 5</td>
+<td>num2 =5<br> num2 = 5</td>
 </tr>
 </tbody>
 </table>
-<blockquote>
-<p>通过上诉的总结发现，这里有一个数值转换的内容，其实在递增/递减操作符针对不同<strong>数据类型</strong>操作的时候，在js内部其实都是经过内置的操作函数进行处理的，而这个内置的操作函数就是<code>Number()</code></p>
-</blockquote>
-<h1 id="位操作符"><a href="#位操作符" class="headerlink" title="位操作符"></a>位操作符</h1><blockquote>
-<p>位操作符用于在最基本的层次上==&gt;按<strong>内存</strong>中表示数值的<em>位</em>来操作数值。</p>
-</blockquote>
-<p>ECMAScript中的所有数值都以IEEE-754 64位格式存储，但<strong>位操作符</strong>并不直接操作64位的值。而是先将64位的值<strong>转换</strong>为32位的<strong>整数</strong>，最后再将结果转换为64位。</p>
-<p>如果对于非数值的数值进行位操作，首先先对该数据进行<code>Number()</code>操作(自动完成)，然后进行对应的位操作，所以无论位操作数对什么数据类型进行操作，返回的<strong>结果</strong>都是<strong>一个数值</strong>。</p>
-<h2 id="按位非-NOT"><a href="#按位非-NOT" class="headerlink" title="按位非(NOT)"></a>按位非(NOT)</h2><p>按位非操作符由一个波浪线(~)表示，执行结果是返回<strong>数值的反码</strong>。<br>本质：操作数的<strong>数值</strong>-1</p>
-<h2 id="按位与-AND"><a href="#按位与-AND" class="headerlink" title="按位与(AND)"></a>按位与(AND)</h2><p>从本质上将，按位与操作就是将两个<strong>数值</strong>的<strong>每一位</strong>对齐，然后根据一定的规则返回对应的结果。</p>
-<table>
-<thead>
-<tr>
-<th>第一个数值的位</th>
-<th>第二个数值的位</th>
-<th>结果</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>1</td>
-<td>1</td>
-</tr>
-<tr>
-<td>1</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr>
-<td>0</td>
-<td>1</td>
-<td>0</td>
-</tr>
-<tr>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-</tr>
-</tbody>
-</table>
-<p>也就是说对于两个操作数中对应的位来说，<strong>相同为1，不同为0</strong></p>
-<h2 id="按位或-OR"><a href="#按位或-OR" class="headerlink" title="按位或(OR)"></a>按位或(OR)</h2><table>
-<thead>
-<tr>
-<th>第一个数值的位</th>
-<th>第二个数值的位</th>
-<th>结果</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>1</td>
-<td>1</td>
-</tr>
-<tr>
-<td>1</td>
-<td>0</td>
-<td>1</td>
-</tr>
-<tr>
-<td>0</td>
-<td>1</td>
-<td>1</td>
-</tr>
-<tr>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-</tr>
-</tbody>
-</table>
-<p>对于<strong>或</strong>运算来将，就是有<strong>有真则真</strong>。</p>
-<h2 id="按位异或-XOR"><a href="#按位异或-XOR" class="headerlink" title="按位异或(XOR)"></a>按位异或(XOR)</h2><table>
-<thead>
-<tr>
-<th>第一个数值的位</th>
-<th>第二个数值的位</th>
-<th>结果</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>1</td>
-<td>0</td>
-</tr>
-<tr>
-<td>1</td>
-<td>0</td>
-<td>1</td>
-</tr>
-<tr>
-<td>0</td>
-<td>1</td>
-<td>1</td>
-</tr>
-<tr>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-</tr>
-</tbody>
-</table>
-<p> 也就是说的额<strong>相同为0 ，不同为1</strong></p>
-<h1 id="布尔操作符"><a href="#布尔操作符" class="headerlink" title="布尔操作符"></a>布尔操作符</h1><p>布尔操作符一共三个：非(NOT)、与(AND)、或(OR).</p>
-<h2 id="逻辑非"><a href="#逻辑非" class="headerlink" title="逻辑非"></a>逻辑非</h2><p>可以应用于ECMAScript中的任何值，无论这个值是什么数值类型，该操作符都会返回一个<strong>布尔值</strong>。<br>！操作首先将他的操作数<strong>转换</strong>为一个Boolean值，然后将其<strong>求反</strong>。<br>对于进行<strong>逻辑非</strong>处理的数据需要额外记得的是，对一个数据进行操作，除了下面的<strong>六</strong>种情况，其他的都返回的是<strong>ture</strong>。 </p>
-<ul>
-<li>‘’(空String) </li>
-<li>0(Number)</li>
-<li>NaN(Number)</li>
-<li>null(Object)</li>
-<li>false(Boolean)</li>
-<li>undefined(Undefined)</li>
-</ul>
-<p>其实对数据进行逻辑非处理，在js内核中，进行的是也是<strong>数值转换</strong>。对一个数值进行逻辑非操作，首先利用内置的<strong>转换函数</strong><code>Boolean()</code>对操作数进行转换，然后在转换的结果中进行取反。</p>
-<h2 id="逻辑与"><a href="#逻辑与" class="headerlink" title="逻辑与"></a>逻辑与</h2><p>逻辑与操作可以应用于<strong>任何类型</strong>的操作数，而不仅仅是Boolean。在有一个操作数不是布尔值的情况下，逻辑与操作就<strong>不一定返回布尔值</strong>。<br>逻辑与操作属于<strong>短路操作</strong>，即如果第一个操作数能够<strong>决定结果</strong>(如果第一个值进行Boolean()操作之后是false)，那么就不会再对第二个操作数<strong>求值</strong></p>
-<h2 id="逻辑或"><a href="#逻辑或" class="headerlink" title="逻辑或"></a>逻辑或</h2><p>与逻辑与操作符相似，逻辑或操作符也是<strong>短路操作符</strong>。</p>
-<h1 id="加性操作符"><a href="#加性操作符" class="headerlink" title="加性操作符"></a>加性操作符</h1><p>对于加法操作符(+)来将，根据参与运算的数据类型不同结果不同</p>
-<table>
-<thead>
-<tr>
-<th>参与运算的操作符类型</th>
-<th>结果</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>都是Number</td>
-<td>常c规的加法运行</td>
-</tr>
-<tr>
-<td>都是String</td>
-<td>第二个操作数与第一个操作数<strong>拼接</strong></td>
-</tr>
-<tr>
-<td>只有一个操作符为String,则对另外一个操作数转为String</td>
-<td><strong>拼接在一起</strong></td>
-</tr>
-</tbody>
-</table>
-<p>针对于有一个操作符是String，对于另外一个操作符来将分为两大类</p>
-<ul>
-<li>操作数为Object/Number/Boolen ==&gt;在进行操作的时候，调用对应数据的<code>toString()</code>取得对应的字符串值。</li>
-<li>操作数为null/undefined ==&gt;调用String(),转为对应的String类型。</li>
-</ul>
-<h1 id="关系操作符"><a href="#关系操作符" class="headerlink" title="关系操作符"></a>关系操作符</h1><p>当关系操作符使用了<strong>非数值</strong>，需要进行数据<strong>转换</strong></p>
-<p>| 操作符类型 | 结果 |<br>| 都是数值 | 数值比较 |<br>| 都是字符串 | 字符编码值的比较 |<br>| 一个操作数是数值，则将另外一个操作数转换为数值 | 数值比较 |<br>| 一个操作数是对象，则调用<strong>这个对象</strong>的valueOf()方法，将得到结果运行上述规格进行比较，如果没有valueOf(),就调用对象的toString() | 数值比较 |<br>| 如果操作数是Boolean | 数值比较 |</p>
-<blockquote>
-<p>从上面的table中可以看到，对于关系操作符的运算，最后会被转换为<strong>数值</strong>的比较，比较无论什么类型的数据在内存中都是以二进制形式存储，采用数值比较速度比较快</p>
-</blockquote>
+<p>当从一个变量向另一个变量复制<strong>引用类型</strong>的值时，同样也会将存储在变量对象中的值复制一份放到位新变量分配的空间中。不同的是，这个值的<strong>副本</strong>实际上是一个<strong>指针</strong>，而这个指针指向存储在<strong>堆中</strong>的一个对象。复制操作结束后，两个变量实际上将引用<strong>同一个对象</strong>。因此，改变其中一个变量，就会影响另一个变量。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> obj1 = <span class="keyword">new</span> <span class="built_in">Object</span>();</div><div class="line"><span class="keyword">let</span> obj2 = obj1;</div><div class="line">obj1.name = <span class="string">'lihui'</span>;</div><div class="line"><span class="built_in">console</span>.log(obj2.name);<span class="comment">//lihui</span></div></pre></td></tr></table></figure></p>
+<p>上面的例子中，obj1和obj2都指向<strong>同一个对象</strong>。<br><img src="/image/js/variable/Variable.png" alt=""></p>
+<h2 id="传递参数"><a href="#传递参数" class="headerlink" title="传递参数"></a>传递参数</h2><p>ECMAScript中所有函数的<strong>参数</strong>都是<strong>按值传递</strong>的。也就是说，把函数外部的值<strong>复制</strong>给函数内部的参数，就和把值从一个变量复制到另一个变量一样。<br>在向参数传递基本类型的值时，被传递的值会被复制给一个<strong>局部变量</strong>(即命名参数，或者用ECMAScript的概念来说，就是arguments对象中的一个元素)。在向参数传递<strong>引用类型</strong>的值时，会把这个值的在<strong>内存中的地址</strong>复制给一个局部变量，因此这个局部变量的变化会反映在函数<strong>外部</strong>。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">setName</span>(<span class="params">obj</span>)</span>&#123;</div><div class="line">    obj.name = <span class="string">"llihui"</span>;</div><div class="line">&#125;</div><div class="line"><span class="keyword">let</span> person = <span class="keyword">new</span> <span class="built_in">Object</span>();</div><div class="line">setName(person);</div><div class="line"><span class="built_in">console</span>.log(person.name);<span class="comment">//lihui</span></div></pre></td></tr></table></figure></p>
+<p>在这个函数内部，obj和person引用的是同一个对象。换句话说，即使这个变量是<strong>按值传递</strong>的，obj也会<strong>按引用</strong>来访问同一个对象。<br>这里需要有一个地方需要特别注意函数参数中值传递是<strong>按值传递</strong>不是按引用传递。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">setName</span>(<span class="params">obj</span>)</span>&#123;</div><div class="line">    obj.name = <span class="string">'lihui'</span>;</div><div class="line">    obj = <span class="keyword">new</span> <span class="built_in">Object</span>();</div><div class="line">    obj.name = <span class="string">'78'</span>;</div><div class="line">&#125;</div><div class="line"><span class="keyword">let</span> person = <span class="keyword">new</span> <span class="built_in">Object</span>();</div><div class="line">setName(person);</div><div class="line"><span class="built_in">console</span>.log(person.name);<span class="comment">//lihui</span></div></pre></td></tr></table></figure></p>
+<p>如果person是按引用传递的，那么person就会自动被修改为指向其name属性值的’78’的新对象。但是在访问person.name时，显示的值仍热是’lihui’。这就说明即使在函数内部修改了参数的值，但原始的引用任然保持没有变化。<strong>实际上</strong>，当函数内部重写obj时，这个变量引用的就是一个局部对象了。而这个局部对象会在函数执行完毕后立即被<strong>销毁</strong></p>
+<hr>
+<p>未完待续。。。。</p>
 
       
     </div>
@@ -592,8 +435,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/01/02/React-JSX-In-depth/" rel="next" title="深度解析JSX">
-                <i class="fa fa-chevron-left"></i> 深度解析JSX
+              <a href="/2018/01/03/JS-Operator/" rel="next" title="JS操作符">
+                <i class="fa fa-chevron-left"></i> JS操作符
               </a>
             
           </div>
@@ -601,10 +444,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/01/04/JS-Variable-Detail/" rel="prev" title="JS变量和作用域详解">
-                JS变量和作用域详解 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -782,7 +621,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一元operator"><span class="nav-number">1.</span> <span class="nav-text">一元operator</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#递增递减operator"><span class="nav-number">1.1.</span> <span class="nav-text">递增递减operator</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#位操作符"><span class="nav-number">2.</span> <span class="nav-text">位操作符</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#按位非-NOT"><span class="nav-number">2.1.</span> <span class="nav-text">按位非(NOT)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#按位与-AND"><span class="nav-number">2.2.</span> <span class="nav-text">按位与(AND)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#按位或-OR"><span class="nav-number">2.3.</span> <span class="nav-text">按位或(OR)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#按位异或-XOR"><span class="nav-number">2.4.</span> <span class="nav-text">按位异或(XOR)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#布尔操作符"><span class="nav-number">3.</span> <span class="nav-text">布尔操作符</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#逻辑非"><span class="nav-number">3.1.</span> <span class="nav-text">逻辑非</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#逻辑与"><span class="nav-number">3.2.</span> <span class="nav-text">逻辑与</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#逻辑或"><span class="nav-number">3.3.</span> <span class="nav-text">逻辑或</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#加性操作符"><span class="nav-number">4.</span> <span class="nav-text">加性操作符</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#关系操作符"><span class="nav-number">5.</span> <span class="nav-text">关系操作符</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基本类型和引用类型的值"><span class="nav-number">1.</span> <span class="nav-text">基本类型和引用类型的值</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#复制变量值"><span class="nav-number">1.1.</span> <span class="nav-text">复制变量值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#传递参数"><span class="nav-number">1.2.</span> <span class="nav-text">传递参数</span></a></li></ol></li></ol></div>
             
 
           </div>
