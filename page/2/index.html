@@ -252,6 +252,195 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/21/First-Head-ES6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="踽踽前行的路人">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="朝花夕拾">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/12/21/First-Head-ES6/" itemprop="url">let 和 const</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-21T22:37:53+08:00">
+                2017-12-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ES6/" itemprop="url" rel="index">
+                    <span itemprop="name">ES6</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <hr>
+<h1 id="let"><a href="#let" class="headerlink" title="let"></a>let</h1><h2 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h2><p>ES6新增了用于声明变量的let命令，用法类似于var，但是用let声明的变量只能在let所在的<strong>代码块</strong>内有效。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    <span class="keyword">let</span> a = <span class="string">'paramA'</span>;</div><div class="line">    <span class="keyword">var</span> b = <span class="string">'paramB'</span>;</div><div class="line">&#125;</div><div class="line">a <span class="comment">// ReferenceError :a is not defined</span></div><div class="line">b <span class="comment">// paramB</span></div></pre></td></tr></table></figure></p>
+<p>这里有一个很有意思的bug，需要着重讨论一下。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> a = [];</div><div class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;<span class="number">10</span>;i++)&#123;</div><div class="line">    a[i]=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(i)</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">a[<span class="number">6</span>](); <span class="comment">// 10</span></div></pre></td></tr></table></figure></p>
+<p>这个输出结果很意外，很多人以为会是输出6，但是在浏览器的控制台的结果却是10。很诧异。<br>我们来扮演一下浏览器的处理过程。<br>首先我们需要确定一个概念就是用var定义的变量会发生<strong>变量提升</strong>，也就是说在for循环中定义的i经过变量提升，提示到代码的最前面，等同于在整个for循环中仅仅存在一份i变量。</p>
+<ol>
+<li>每次for处理，唯一的i值会发生相应的变化。</li>
+<li>在for结束之后，i的值已经变为10</li>
+<li>调用a<a href="">6</a>的时候，其实是在堆内存中找出对应的console.log(i),此时在该匿名函数查找栈内存中的i变量，发现i的值是10，所以没有商量</li>
+<li>最后的输出结果为10</li>
+</ol>
+<p>如果在for中采用let来定义<strong>游标</strong>(循环变量)<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> a = [];</div><div class="line"><span class="keyword">for</span>(<span class="keyword">let</span> i=<span class="number">0</span>;i&lt;<span class="number">10</span>;i++)&#123;</div><div class="line">    a[i]=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(i)</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">a[<span class="number">6</span>](); <span class="comment">// 6</span></div></pre></td></tr></table></figure></p>
+<p>此时的结果就是6了。<br>其实不管是在for中用var或者let定义，内部都涉及到闭包。<br>这里以let的来解析一下。<br>首先需要明确的一点，console.log是ECMAScript中的内置函数。</p>
+<ol>
+<li>for处理，let定义的<strong>游标</strong>也是会发生变化，但是需要记住，用let定义的变量只在对应的<strong>代码块</strong>中有效，所以每一次的let都是<strong>新的</strong>。</li>
+<li>for结束</li>
+<li>调用a<a href="">6</a>,由于闭包存在作用域链，在console.log(i)被调用后，匿名函数会在该函数对应作用域链中查找栈内存中的对应的i变量。由1所知，i在每一次循环中都是<strong>新的</strong>。</li>
+<li>输出结果是6</li>
+</ol>
+<h2 id="不存在变量提升"><a href="#不存在变量提升" class="headerlink" title="不存在变量提升"></a>不存在变量提升</h2><p>let不存在变量提升，所以，<strong>变量一定要在声明后使用</strong><br>原来使用var定义变量的时候，<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">console</span>.log(paramA);</div><div class="line"><span class="keyword">var</span> paramA = <span class="string">'hehe'</span>;</div></pre></td></tr></table></figure></p>
+<p>上面代码是能够运行成功的，之所以能够通过编译。是由于在编译器对上述代码会在编译阶段就行调整<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> paramA;</div><div class="line"><span class="built_in">console</span>.log(paramA);</div><div class="line">paramA = <span class="string">'hehe'</span>;</div></pre></td></tr></table></figure></p>
+<p>但是现在用let定义的变量不会发生<strong>变量提升</strong>所以下面的代码就会报错<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">console</span>.log(paramB); <span class="comment">// ReferenceError</span></div><div class="line"><span class="keyword">let</span> paramB = <span class="string">'haha'</span>;</div></pre></td></tr></table></figure></p>
+<h2 id="暂时性死区-temporal-dead-zone-TDZ"><a href="#暂时性死区-temporal-dead-zone-TDZ" class="headerlink" title="暂时性死区(temporal dead zone TDZ)"></a>暂时性死区(temporal dead zone TDZ)</h2><p>只要<strong>块级作用域</strong>内存在let命令，它所声明的变量就<em>绑定</em>这个区域，不再受外部影响。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> temp = <span class="number">123</span>;</div><div class="line"><span class="keyword">if</span>(<span class="literal">true</span>)&#123;</div><div class="line">    <span class="built_in">console</span>.log(temp);<span class="comment">// ReferenceError</span></div><div class="line">    temp = <span class="string">'hehe'</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>ES6明确规定，如果在区块中存在let和const命令，则这个区块对这些命令声明的变量从一开始就形成<strong>封闭作用域</strong>，只要在声明之前使用这些变量，就会报错。</p>
+</blockquote>
+<p><strong>总之，TDZ的本质就是，只要一进入当前作用域，所要使用的变量就已存在，但是不可以获取，只有等到声明变量的那行代码出现，才可以获取和使用该变量</strong></p>
+<h2 id="不允许重复声明"><a href="#不允许重复声明" class="headerlink" title="不允许重复声明"></a>不允许重复声明</h2><p>let不允许在相同作用域内重复声明同一变量。(这个是规定)<br>这个是为了区分ES5中用var定义变量，用var定义的变量可以重复定义，变量最后的值，是以最后定义的为准</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span>(<span class="literal">true</span>)&#123;</div><div class="line">    <span class="keyword">var</span> a = <span class="number">10</span>;</div><div class="line">    <span class="keyword">var</span> a =<span class="string">'b'</span>;</div><div class="line">    <span class="built_in">console</span>.log(a);<span class="comment">// b</span></div><div class="line">&#125;</div><div class="line"><span class="comment">// 报错</span></div><div class="line"><span class="keyword">if</span>(<span class="literal">true</span>)&#123;</div><div class="line">    <span class="keyword">let</span> a = <span class="number">10</span>;</div><div class="line">    <span class="keyword">var</span> a =<span class="number">1</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在这个规则中，有一点需要注意：<br><strong>不能在函数内部重新声明参数</strong></p>
+<h1 id="块级作用域"><a href="#块级作用域" class="headerlink" title="块级作用域"></a>块级作用域</h1><p>ES5只有<strong>全局作用域</strong>和<strong>函数作用域</strong>，没有块级作用。<br>这里就会产生很多意外的bug。</p>
+<ul>
+<li>内层变量覆盖外层变量</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> tmp = <span class="keyword">new</span> <span class="built_in">Date</span>();</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(tmp);</div><div class="line">    <span class="keyword">if</span>(<span class="literal">false</span>)&#123;</div><div class="line">        <span class="keyword">var</span> tmp = <span class="string">"hehe"</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">f() <span class="comment">// undefined</span></div></pre></td></tr></table></figure>
+<p>由于在函数作用域中tmp发生了变量提示，在<strong>编译阶段</strong>提升到函数作用域的最前面，然后log(tmp)。由于tmp被提升到函数作用域的最前面，所以在log的时候，此时tmp的值是被提升的值，而不是全局作用域中定义的变量。</p>
+<ul>
+<li>用来技术的循环变量泄露为全局变量</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> s = <span class="string">"hello"</span></div><div class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>;i &lt; s.length;i++)&#123;</div><div class="line">    <span class="built_in">console</span>.log(i)</div><div class="line">&#125;</div><div class="line"><span class="built_in">console</span>.log(i)<span class="comment">// 5</span></div></pre></td></tr></table></figure>
+<p>然而ES6为了避免这些不必要的bug，新增了块级作用域</p>
+<h1 id="const-命令"><a href="#const-命令" class="headerlink" title="const 命令"></a>const 命令</h1><p>const 用于声明<strong>常量</strong>。一旦声明，其值就不能改变。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> PI = <span class="number">3.14</span>;</div><div class="line">PI <span class="comment">//3.14</span></div><div class="line">PI = <span class="number">3</span>; <span class="comment">//TypeError :'PI' is read-only</span></div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>const声明的常量不得改变值，也就是说，const一旦声明常量，就必须<strong>立即初始化</strong>。const 声明的变量也不会发生变量提升，同时存在TDZ.</p>
+</blockquote>
+<hr>
+<p>对于符合类型的变量，例如对象，变量名不指向数据，而是指向数据所在的地址。const命令只是保证变量名指向的地址不变，并不保证该地址的数据不变。</p>
+<hr>
+<h1 id="Buzzer"><a href="#Buzzer" class="headerlink" title="Buzzer"></a>Buzzer</h1><p>其实ES6之所以会新增let、const命令主要是为了避免ES5使用var定义变量的各种稀奇古怪的问题。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/21/First-Head-CSS/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -798,7 +987,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
